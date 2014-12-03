@@ -4,7 +4,7 @@
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
 	# View the current working tree status using the short format
-	s = status -s
+	s = status
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
@@ -16,13 +16,18 @@
 	p = !"git pull; git submodule foreach git pull origin master"
 
 	# Clone a repository including all submodules
-	c = clone --recursive
+	cl = clone --recursive
+
+	c = commit
 
 	# Commit all changes
 	ca = !git add -A && git commit -av
 
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	o = checkout
+	co = checkout
 
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
@@ -118,6 +123,7 @@
 
 	# Detect copies as well as renames
 	renames = copies
+	tool = meld
 
 [help]
 
@@ -128,6 +134,7 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	tool = meld
 
 [push]
 
@@ -157,3 +164,14 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+
+[url "git@git.bitbucket.com:"]
+
+	insteadOf = "bb:"
+	pushInsteadOf = "bitbucket:"
+	pushInsteadOf = "git://bitbucket.com/"
+
+[url "git://bitbucket.com"]
+
+insteadOf = "bitbucket:"
+
